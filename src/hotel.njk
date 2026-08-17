@@ -1,0 +1,165 @@
+---
+layout: base.njk
+title: Hotel Information
+permalink: /hotel/
+---
+
+<h1>Hotel Information</h1>
+<!--
+
+<p>If you're traveling from out of town, we've arranged special rates at nearby hotels. Here are your options.</p>
+
+<section class="section">
+  <h2>Hotel Room Block</h2>
+
+  <p>We have reserved a limited block of rooms at the following hotel. Book your room using the reservation code below to receive our special rate.</p>
+
+  <div class="hotel-card">
+    <h3>Hotel Name</h3>
+    <p>
+      <strong>Address:</strong><br>
+      [Street Address]<br>
+      [City, State ZIP Code]
+    </p>
+    <p>
+      <strong>Phone:</strong> <a href="tel:[PHONE]">[PHONE]</a><br>
+      <strong>Website:</strong> <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit Hotel Website</a>
+    </p>
+
+    <div class="room-details">
+      <h4>Room Details</h4>
+      <ul>
+        <li><strong>Rate:</strong> $[PRICE] per night (group rate)</li>
+        <li><strong>Standard Rate:</strong> $[PRICE] per night (without code)</li>
+        <li><strong>Room Types:</strong> Standard, Deluxe, Suite</li>
+        <li><strong>Amenities:</strong> Free WiFi, fitness center, pool, on-site dining</li>
+      </ul>
+    </div>
+
+    <div class="reservation-details">
+      <h4>How to Book</h4>
+      <p><strong>Reservation Code:</strong> <code>SARINA25</code></p>
+      <ol>
+        <li>Call <a href="tel:[PHONE]">[PHONE]</a> and reference code <code>SARINA25</code></li>
+        <li>Or visit <a href="https://example.com" target="_blank" rel="noopener noreferrer">book online</a> and enter the code</li>
+        <li>Rooms available <strong>[DATE]</strong> - <strong>[DATE]</strong></li>
+      </ol>
+    </div>
+
+    <div class="cutoff-alert">
+      <strong>⚠️ Cutoff Date:</strong> Rooms must be booked by <strong>[DATE]</strong> to receive the group rate. Book early!
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Other Nearby Hotels</h2>
+
+  <p>If the main hotel is fully booked or you prefer other options, here are nearby alternatives:</p>
+
+  <div class="hotels-grid">
+    <div class="hotel-option">
+      <h4>Hotel Name 2</h4>
+      <p>
+        <strong>Distance:</strong> [X] miles away<br>
+        <strong>Rate:</strong> $[PRICE] per night<br>
+        <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit Website</a>
+      </p>
+    </div>
+
+    <div class="hotel-option">
+      <h4>Hotel Name 3</h4>
+      <p>
+        <strong>Distance:</strong> [X] miles away<br>
+        <strong>Rate:</strong> $[PRICE] per night<br>
+        <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit Website</a>
+      </p>
+    </div>
+
+    <div class="hotel-option">
+      <h4>Hotel Name 4</h4>
+      <p>
+        <strong>Distance:</strong> [X] miles away<br>
+        <strong>Rate:</strong> $[PRICE] per night<br>
+        <a href="https://example.com" target="_blank" rel="noopener noreferrer">Visit Website</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Accessibility Features</h2>
+  <ul>
+    <li><strong>Accessible Rooms:</strong> Available upon request</li>
+    <li><strong>Service Animals:</strong> Welcome</li>
+    <li><strong>Mobility Devices:</strong> Elevators available</li>
+    <li><strong>Accessible Parking:</strong> Available on-site</li>
+    <li><strong>Accessible Bathrooms:</strong> Roll-in showers available</li>
+  </ul>
+  <p>If you need specific accommodations, please contact the hotel directly or reach out to us at <a href="mailto:hello@sarinabatmitzvah.com">hello@sarinabatmitzvah.com</a>.</p>
+</section>
+-->
+
+<style>
+.hotel-card {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: var(--spacing-xl);
+}
+
+.hotel-card h3 {
+  margin-top: 0;
+}
+
+.hotel-card h4 {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.room-details,
+.reservation-details {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+}
+
+.room-details ul {
+  margin-left: var(--spacing-lg);
+}
+
+.reservation-details ol {
+  margin-left: var(--spacing-lg);
+}
+
+.cutoff-alert {
+  background: var(--color-error-bg);
+  border-left: 4px solid var(--color-error);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  border-radius: 4px;
+  color: var(--color-error);
+}
+
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+.hotel-option {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.hotel-option h4 {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

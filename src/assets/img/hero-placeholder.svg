@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background gradient -->
+  <rect width="800" height="600" fill="url(#heroGradient)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="rgba(255, 255, 255, 0.1)"/>
+  <circle cx="700" cy="500" r="120" fill="rgba(255, 255, 255, 0.1)"/>
+  
+  <!-- Main content -->
+  <text x="400" y="250" font-family="Georgia, serif" font-size="72" font-weight="bold" text-anchor="middle" fill="white" dominant-baseline="middle">
+    Sarina
+  </text>
+  
+  <text x="400" y="330" font-family="Arial, sans-serif" font-size="48" text-anchor="middle" fill="rgba(255, 255, 255, 0.9)" dominant-baseline="middle">
+    Bat Mitzvah
+  </text>
+  
+  <text x="400" y="400" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" dominant-baseline="middle">
+    Coming of Age Celebration
+  </text>
+  
+  <!-- Star symbol at bottom -->
+  <path d="M400 480 L410 510 L445 510 L420 530 L430 560 L400 540 L370 560 L380 530 L355 510 L390 510 Z" fill="white" opacity="0.6"/>
+</svg>

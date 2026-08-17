@@ -1,0 +1,15 @@
+{
+  "name": "sarina-bat-mitzvah-website",
+  "version": "1.0.0",
+  "description": "Static website for Sarina's Bat Mitzvah with RSVP workflow",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": ["bat-mitzvah", "static-site"],
+  "author": "Marc Solomon",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

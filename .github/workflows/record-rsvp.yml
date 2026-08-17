@@ -1,0 +1,85 @@
+name: Record RSVP
+
+on:
+  repository_dispatch:
+    types: [ rsvp_submission ]
+
+permissions:
+  contents: write
+
+jobs:
+  record-rsvp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config --local user.email "bot@sarinabatmitzvah.com"
+          git config --local user.name "Sarina's RSVP Bot"
+
+      - name: Record RSVP
+        id: record
+        run: |
+          # Prepare RSVP data
+          FULL_NAME="${{ github.event.client_payload.fullName }}"
+          EMAIL="${{ github.event.client_payload.email }}"
+          PARTY_SIZE="${{ github.event.client_payload.partySize }}"
+          ADDITIONAL_GUESTS="${{ github.event.client_payload.additionalGuests }}"
+          FRIDAY_SERVICE="${{ github.event.client_payload.fridayService }}"
+          SATURDAY_MORNING="${{ github.event.client_payload.saturdayMorningService }}"
+          SATURDAY_PARTY="${{ github.event.client_payload.saturdayParty }}"
+          DIETARY="${{ github.event.client_payload.dietary }}"
+          MESSAGE="${{ github.event.client_payload.message }}"
+          TIMESTAMP="${{ github.event.client_payload.timestamp }}"
+
+          # Create a new RSVP JSON object
+          RSVP_RECORD=$(cat <<EOF
+          {
+            "name": "$(echo "$FULL_NAME" | sed 's/"/\\"/g')",
+            "email": "$(echo "$EMAIL" | sed 's/"/\\"/g')",
+            "partySize": $PARTY_SIZE,
+            "additionalGuests": "$(echo "$ADDITIONAL_GUESTS" | sed 's/"/\\"/g')",
+            "attending": {
+              "fridayService": $([[ "$FRIDAY_SERVICE" == "yes" ]] && echo "true" || echo "false"),
+              "saturdayMorningService": $([[ "$SATURDAY_MORNING" == "yes" ]] && echo "true" || echo "false"),
+              "saturdayParty": $([[ "$SATURDAY_PARTY" == "yes" ]] && echo "true" || echo "false")
+            },
+            "dietary": "$(echo "$DIETARY" | sed 's/"/\\"/g')",
+            "message": "$(echo "$MESSAGE" | sed 's/"/\\"/g')",
+            "timestamp": "$TIMESTAMP"
+          }
+          EOF
+          )
+
+          # Read current RSVPs
+          if [ -f "src/_data/rsvps.json" ]; then
+            CURRENT=$(cat src/_data/rsvps.json)
+          else
+            CURRENT='{"rsvps": []}'
+          fi
+
+          # Append new RSVP using jq
+          UPDATED=$(echo "$CURRENT" | jq ".rsvps += [${RSVP_RECORD}]")
+          echo "$UPDATED" > src/_data/rsvps.json
+
+          echo "rsvps_updated=true" >> $GITHUB_OUTPUT
+          echo "RECORDED: $FULL_NAME"
+
+      - name: Commit and push
+        if: steps.record.outputs.rsvps_updated == 'true'
+        run: |
+          FULL_NAME="${{ github.event.client_payload.fullName }}"
+          TIMESTAMP="${{ github.event.client_payload.timestamp }}"
+          git add src/_data/rsvps.json
+          git commit -m "Add RSVP: $FULL_NAME ($TIMESTAMP)"
+          git push origin main
+
+      - name: Notify on error
+        if: failure()
+        run: |
+          echo "Failed to record RSVP for ${{ github.event.client_payload.fullName }}"
+          exit 1

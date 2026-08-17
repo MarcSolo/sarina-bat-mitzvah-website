@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Celebrate Sarina's Bat Mitzvah. Event details, RSVP, and more.">
+  <title>{% if title %}{{ title }} | {% endif %}Sarina's Bat Mitzvah</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  {# Skip to main content link - first focusable element #}
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/" class="logo-link" title="Sarina's Bat Mitzvah - Homepage" {% if page.url == "/" %}aria-current="page"{% endif %}>
+        <img src="/assets/img/sarina-logo.svg" alt="Sarina's Bat Mitzvah - Homepage" class="logo">
+      </a>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/rsvp/" {% if page.url == "/rsvp/" %}aria-current="page"{% endif %}>RSVP</a></li>
+          <li><a href="/itinerary/" {% if page.url == "/itinerary/" %}aria-current="page"{% endif %}>Itinerary</a></li>
+          <li><a href="/directions/" {% if page.url == "/directions/" %}aria-current="page"{% endif %}>Directions</a></li>
+          <li><a href="/hotel/" {% if page.url == "/hotel/" %}aria-current="page"{% endif %}>Hotel Info</a></li>
+          <li><a href="/mitzvah-project/" {% if page.url == "/mitzvah-project/" %}aria-current="page"{% endif %}>Mitzvah Project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Sarina's Bat Mitzvah. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
