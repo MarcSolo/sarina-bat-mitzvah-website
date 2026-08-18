@@ -19,8 +19,7 @@ Sarina's Bat Mitzvah website is **fully implemented and ready for manual configu
 ### Phase 1: All 6 Pages ✅
 - [x] **Home** (`/`) - Hero image, welcome message, event highlights, CTA button
 - [x] **RSVP** (`/rsvp/`) - Complete form with validation, error handling, success messaging
-- [x] **Itinerary** (`/itinerary/`) - Timeline of all events
-- [x] **Directions** (`/directions/`) - Venue information and maps
+- [x] **Events** (`/events/`) - Timeline of all events
 - [x] **Hotel Info** (`/hotel/`) - Room block details and alternatives
 - [x] **Mitzvah Project** (`/mitzvah-project/`) - Project story and contribution options
 
@@ -180,8 +179,7 @@ npm start
 ### Source Code
 - `src/index.njk` - Home page
 - `src/rsvp.njk` - RSVP form page
-- `src/itinerary.njk` - Event schedule
-- `src/directions.njk` - Venue information
+- `src/events.njk` - Event schedule
 - `src/hotel.njk` - Hotel block details
 - `src/mitzvah-project.njk` - Mitzvah project info
 - `src/_includes/base.njk` - Layout template

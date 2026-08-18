@@ -15,8 +15,7 @@ This checklist guides you through completing the website setup. Most of the infr
 ### Pages (All 6)
 - [x] Home page with hero and event highlights
 - [x] RSVP page with complete form (honeypot, validation, error handling)
-- [x] Itinerary page with timeline
-- [x] Directions page with venue info
+- [x] Events page with timeline
 - [x] Hotel Info page with room block details
 - [x] Mitzvah Project page with contribution options
 
@@ -221,8 +220,7 @@ Add secrets to GitHub repository (Settings → Secrets and variables → Actions
 The site currently has placeholder content. Update these files with actual event details:
 
 - [ ] [src/index.njk](src/index.njk) - Update hero image, event dates/times
-- [ ] [src/itinerary.njk](src/itinerary.njk) - Fill in actual event times and locations
-- [ ] [src/directions.njk](src/directions.njk) - Add venue addresses, maps, parking info
+- [ ] [src/events.njk](src/events.njk) - Fill in actual event times and locations
 - [ ] [src/hotel.njk](src/hotel.njk) - Add hotel details, room rates, reservation code
 - [ ] [src/mitzvah-project.njk](src/mitzvah-project.njk) - Add Sarina's project details and story
 
@@ -366,8 +364,7 @@ sarinabatmitzvah.com
 │   │   └── img/              # Logo, hero, assets
 │   ├── index.njk             # Home
 │   ├── rsvp.njk              # RSVP form
-│   ├── itinerary.njk         # Schedule
-│   ├── directions.njk        # Venue info
+│   ├── events.njk         # Schedule
 │   ├── hotel.njk             # Hotel details
 │   └── mitzvah-project.njk   # Project story
 ├── worker/

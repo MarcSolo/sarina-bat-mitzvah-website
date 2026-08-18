@@ -68,13 +68,12 @@ GitHub Actions (on: repository_dispatch)
 |---|---|---|
 | Home / Welcome | `/` | Hero image of Sarina, warm welcome, event date/overview, primary CTA to RSVP. |
 | RSVP | `/rsvp/` | The RSVP form (see §5). |
-| Itinerary | `/itinerary/` | Schedule of events (Friday service, Saturday service, Saturday party). |
-| Directions | `/directions/` | Venue address(es), map link, parking notes. |
+| Events | `/events/` | Schedule of events (Friday service, Saturday service, Saturday party). |
 | Hotel Info | `/hotel/` | Room block details, booking link, cutoff date. |
 | Mitzvah Project | `/mitzvah-project/` | Sarina's project story and how guests can contribute. |
 
 **Global elements (every page):**
-- **Header** containing the **site logo (links to `/`)** and the **main navigation**: RSVP, Itinerary, Directions, Hotel Info, Mitzvah Project.
+- **Header** containing the **site logo (links to `/`)** and the **main navigation**: RSVP, Events, Hotel Info, Mitzvah Project.
 - **Footer** with event date and a contact email.
 - A **"Skip to main content"** link as the first focusable element.
 
@@ -101,8 +100,7 @@ GitHub Actions (on: repository_dispatch)
 │  │  └─ img/sarina-hero.jpg     # provide optimized 1x/2x versions
 │  ├─ index.njk                  # Home
 │  ├─ rsvp.njk
-│  ├─ itinerary.njk
-│  ├─ directions.njk
+│  ├─ events.njk
 │  ├─ hotel.njk
 │  └─ mitzvah-project.njk
 ├─ worker/                        # Cloudflare Worker (form backend)
@@ -248,7 +246,7 @@ Treat this as a hard requirement, not a nice-to-have. Build accessibly from the 
 | Phase | Deliverable | Notes |
 |---|---|---|
 | **0. Scaffold** | Repo, 11ty config, base template with header (logo→home), nav, footer, skip link | Foundation for all pages. |
-| **1. Static pages** | Home (hero), Itinerary, Directions, Hotel Info, Mitzvah Project | Content can be placeholder; structure must be final + accessible. |
+| **1. Static pages** | Home (hero), Events, Hotel Info, Mitzvah Project | Content can be placeholder; structure must be final + accessible. |
 | **2. Styling & a11y baseline** | CSS, focus styles, contrast, responsive layout | Pass automated a11y checks. |
 | **3. RSVP form (frontend)** | Accessible form + client validation + Turnstile widget | No backend yet; stub submit. |
 | **4. Backend** | Cloudflare Worker: Turnstile verify + email + dispatch | Wire form to Worker. |

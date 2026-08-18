@@ -33,7 +33,7 @@ Output goes to `_site/` directory.
 
 ## File Locations
 
-- **Pages:** `src/*.njk` (index, rsvp, itinerary, directions, hotel, mitzvah-project)
+- **Pages:** `src/*.njk` (index, rsvp, events, hotel, mitzvah-project)
 - **Layout:** `src/_includes/base.njk`
 - **Styles:** `src/assets/css/styles.css`
 - **Images:** `src/assets/img/`
