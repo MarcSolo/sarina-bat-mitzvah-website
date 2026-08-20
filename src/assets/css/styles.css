@@ -502,3 +502,12 @@ input[type="reset"] {
   white-space: nowrap; 
   width: 1px;
 }
+
+.cutoff-alert {
+  background: var(--color-error-bg);
+  border-left: 4px solid var(--color-error);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  border-radius: 4px;
+  color: var(--color-error);
+}
