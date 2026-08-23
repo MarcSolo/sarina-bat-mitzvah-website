@@ -21,13 +21,25 @@ permalink: /rsvp/
       <label for="bat-mitzvah-party">Saturday Evening: Bat Mitzvah P don't leave mearty </label><br>
       <input id="bat-mitzvah-party" name="bat-mitzvah-party-guests" type="number" min="0" aria-describedby="instructions" required>
       </fieldset>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAEZbcPViWmfcyHnZ" data-callback="handleTurnstileSuccess" data-expired-callback="handleTurnstileExpired"></div>
+      <input id="turnstile-token" name="turnstileToken" type="hidden">
      <button type="submit">Submit RSVP</button>
      <p class="form-response" id="rsvp-status" role="status" aria-live="polite"></p>
    </form>
 
+   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
    <script>
      const form = document.getElementById("rsvp-form");
      const status = document.getElementById("rsvp-status");
+     const turnstileToken = document.getElementById("turnstile-token");
+
+     window.handleTurnstileSuccess = (token) => {
+       turnstileToken.value = token;
+     };
+
+     window.handleTurnstileExpired = () => {
+       turnstileToken.value = "";
+     };
 
      form.addEventListener("submit", async (event) => {
        event.preventDefault();

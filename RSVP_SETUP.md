@@ -25,7 +25,7 @@ Your inbox  (you get notified of every RSVP)
 - No GitHub personal access tokens
 - No GitHub Actions
 - No database (added later as an optional second milestone)
-- No spam protection (added later only if spam appears)
+- No hidden form fields; spam protection uses Cloudflare Turnstile and rate limiting.
 
 ---
 
@@ -113,6 +113,28 @@ showing them on the website.
    ```text
    mrmarcsolomon@gmail.com,mrsjessicasolomon@gmail.com
    ```
+
+### Security configuration
+
+1. In the Cloudflare dashboard, create a Turnstile widget for your website.
+2. Replace `YOUR_TURNSTILE_SITE_KEY` in `src/rsvp.njk` with the widget's site key.
+3. Add the Turnstile secret to the Worker:
+   ```bash
+   wrangler secret put TURNSTILE_SECRET
+   ```
+4. Add the Resend secrets if you have not already done so:
+   ```bash
+   wrangler secret put RESEND_API_KEY
+   wrangler secret put RSVP_EMAILS
+   ```
+5. Create a KV namespace for rate limiting:
+   ```bash
+   wrangler kv namespace create RATE_LIMIT_KV
+   ```
+6. Replace `REPLACE_WITH_KV_NAMESPACE_ID` in `wrangler.jsonc` with the returned namespace ID.
+
+The Worker allows five valid submissions per IP address per minute. It verifies
+Turnstile and validates the RSVP on the server before sending an email.
 
 ### Part E: Add the Worker Code
 
@@ -296,16 +318,6 @@ Example of what the admin table would show:
 
 ---
 
-## Milestone 3 (Optional, Only If Needed): Spam Protection
-
-If you start receiving fake or bot RSVPs:
-
-1. In the Cloudflare dashboard, create a **Turnstile** widget.
-2. Add the widget to your RSVP form.
-3. In the Worker, verify the Turnstile token before sending the email.
-
-For a private family event, you may never need this.
-
 ---
 
 ## Quick Reference
@@ -317,5 +329,5 @@ For a private family event, you may never need this.
 | RSVP_EMAILS      | The address(es) that get notified              |
 | RESEND_API_KEY   | Private key that lets the Worker send email     |
 | workers.dev URL  | The Worker's free web address (no DNS changes) |
-| Cloudflare KV    | Optional database for Milestone 2              |
-| Turnstile        | Optional spam protection for Milestone 3       |
+| Cloudflare KV    | Stores short-lived rate-limit counters         |
+| Turnstile        | Verifies that RSVP submissions are likely human |
