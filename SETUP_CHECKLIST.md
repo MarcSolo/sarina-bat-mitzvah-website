@@ -101,7 +101,7 @@ dig sarinabatmitzvah.com +short
 
 3. [ ] Add Worker secrets:
    ```bash
-   cd worker/
+   cd rsvp-worker/
    
    # Add Turnstile Secret
    wrangler secret put TURNSTILE_SECRET
@@ -367,8 +367,8 @@ sarinabatmitzvah.com
 │   ├── events.njk         # Schedule
 │   ├── hotel.njk             # Hotel details
 │   └── mitzvah-project.njk   # Project story
-├── worker/
-│   ├── wrangler.toml         # Cloudflare config
+├── rsvp-worker/
+│   ├── wrangler.jsonc        # Cloudflare config
 │   └── src/index.js          # Worker code
 ├── .github/workflows/
 │   ├── build-deploy.yml      # Build & deploy
@@ -425,7 +425,7 @@ npm run build            # Build for production
 
 ### Deploy Worker
 ```bash
-cd worker/
+cd rsvp-worker/
 wrangler auth           # Login to Cloudflare
 wrangler secret put     # Add secrets
 wrangler deploy         # Deploy worker

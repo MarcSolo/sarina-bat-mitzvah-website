@@ -103,7 +103,7 @@ GitHub Actions (on: repository_dispatch)
 │  ├─ events.njk
 │  ├─ hotel.njk
 │  └─ mitzvah-project.njk
-├─ worker/                        # Cloudflare Worker (form backend)
+├─ rsvp-worker/                   # Cloudflare Worker (form backend)
 │  ├─ index.js
 │  └─ wrangler.toml
 ├─ CNAME                          # sarinabatmitzvah.com

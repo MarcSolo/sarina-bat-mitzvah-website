@@ -190,8 +190,8 @@ npm start
 - `src/assets/img/hero-placeholder.svg` - Hero image placeholder
 
 ### Backend
-- `worker/src/index.js` - Cloudflare Worker API (~350 lines)
-- `worker/wrangler.toml` - Worker configuration
+- `rsvp-worker/src/index.js` - Cloudflare Worker API
+- `rsvp-worker/wrangler.jsonc` - Worker configuration
 
 ### Deployment
 - `.github/workflows/build-deploy.yml` - Build and deploy workflow

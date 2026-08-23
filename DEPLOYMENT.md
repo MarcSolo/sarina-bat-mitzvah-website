@@ -63,7 +63,7 @@ The website consists of:
 
 1. Dashboard → Workers & Pages → Create Application
 2. Create a new Worker service
-3. Copy the worker code from `worker/src/index.js` into the editor
+3. Copy the Worker code from `rsvp-worker/src/index.js` into the editor
 4. Deploy
 5. Note the worker URL (will look like `https://worker-name.username.workers.dev`)
 
@@ -72,7 +72,7 @@ The website consists of:
 Via Cloudflare Dashboard or `wrangler` CLI:
 
 ```bash
-cd worker/
+cd rsvp-worker/
 
 # Install wrangler if not already installed
 npm install -g wrangler
