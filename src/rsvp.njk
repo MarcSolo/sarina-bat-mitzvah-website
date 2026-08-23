@@ -5,454 +5,54 @@ permalink: /rsvp/
 ---
 
 <h1>RSVP</h1>
-<p>Coming soon...</p>
-<!---
 
-<p>We would love to have you celebrate with us! Please fill out this form to let us know you're coming and provide any details about your attendance and preferences.</p>
+<p>Please fill out this form to let us know which Bat Mitzvah events you plan to attend and how many will be in your party.</p>
+<p>All fields are required.</p>
+<form id="rsvp-form">
+     <label for="name">Name</label> 
+     <input id="name" name="name" type="text" required><br>
+     <fieldset>
+      <legend>How many will attend?</legend>
+      <div id="instructions">Enter 0 if you don't plan to attend an event.</p>
+      <label for="oneg">Erev Shabbat Service and Oneg (Friday evening)</label><br>
+      <input id="oneg" name="oneg-guests" type="number" min="0" aria-describedby="instructions" required><br>
+      <label for="bat-mitzvah-service">Bat Mitzvah Service and Kiddush Luncheon (Saturday morning)</label><br>
+      <input id="bat-mitzvah-service" name="bat-mitzvah-service-guests" type="number" min="0" aria-describedby="instructions" required><br>
+      <label for="bat-mitzvah-party">Bat Mitzvah Party (Saturday evening)</label><br>
+      <input id="bat-mitzvah-party" name="bat-mitzvah-party-guests" type="number" min="0" aria-describedby="instructions" required>
+      </fieldset>
+     <button type="submit">Submit RSVP</button>
+     <p class="form-response" id="rsvp-status" role="status" aria-live="polite"></p>
+   </form>
 
-<form id="rsvp-form" class="rsvp-form" method="POST" novalidate>
-  <div id="error-summary" class="error-summary" role="alert" aria-live="polite" style="display: none;">
-    <h2>Please fix the following errors:</h2>
-    <ul id="error-list"></ul>
-  </div>
+   <script>
+     const form = document.getElementById("rsvp-form");
+     const status = document.getElementById("rsvp-status");
 
-  <div id="success-message" class="success-message" role="status" aria-live="polite" style="display: none;">
-    <h2>Thank you for your RSVP!</h2>
-    <p>We've received your response and will follow up with confirmation details.</p>
-  </div>
+     form.addEventListener("submit", async (event) => {
+       event.preventDefault();
+       status.textContent = "Sending your RSVP...";
 
-  <fieldset>
-    <legend>Your Information</legend>
+       const formData = Object.fromEntries(new FormData(form).entries());
 
-    <div class="form-group">
-      <label for="full-name">Full Name <span aria-label="required">*</span></label>
-      <input
-        type="text"
-        id="full-name"
-        name="fullName"
-        required
-        autocomplete="name"
-        aria-required="true"
-      />
-    </div>
+       try {
+         const response = await fetch(
+           "https://rsvp-worker.marc-solomon.workers.dev", // <-- your Worker URL
+           {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify(formData),
+           }
+         );
 
-    <div class="form-group">
-      <label for="email">Email Address <span aria-label="required">*</span></label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        autocomplete="email"
-        aria-required="true"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="party-size">Number of Guests in Your Party <span aria-label="required">*</span></label>
-      <input
-        type="number"
-        id="party-size"
-        name="partySize"
-        min="1"
-        required
-        aria-required="true"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="additional-guests">Additional Guest Names (one per line)</label>
-      <textarea
-        id="additional-guests"
-        name="additionalGuests"
-        placeholder="John Doe&#10;Jane Smith"
-      ></textarea>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Which Events Will You Attend?</legend>
-
-    <div class="form-group">
-      <div class="radio-group">
-        <span id="friday-group">Friday Evening Service <span aria-label="required">*</span></span>
-        <label for="friday-yes">
-          <input
-            type="radio"
-            id="friday-yes"
-            name="fridayService"
-            value="yes"
-            required
-            aria-required="true"
-            aria-describedby="friday-group"
-          />
-          Yes, I'll attend
-        </label>
-        <label for="friday-no">
-          <input
-            type="radio"
-            id="friday-no"
-            name="fridayService"
-            value="no"
-            required
-            aria-describedby="friday-group"
-          />
-          No, I won't attend
-        </label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="radio-group">
-        <span id="saturday-service-group">Saturday Morning Service <span aria-label="required">*</span></span>
-        <label for="saturday-service-yes">
-          <input
-            type="radio"
-            id="saturday-service-yes"
-            name="saturdayMorningService"
-            value="yes"
-            required
-            aria-required="true"
-            aria-describedby="saturday-service-group"
-          />
-          Yes, I'll attend
-        </label>
-        <label for="saturday-service-no">
-          <input
-            type="radio"
-            id="saturday-service-no"
-            name="saturdayMorningService"
-            value="no"
-            required
-            aria-describedby="saturday-service-group"
-          />
-          No, I won't attend
-        </label>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="radio-group">
-        <span id="saturday-party-group">Saturday Evening Party <span aria-label="required">*</span></span>
-        <label for="saturday-party-yes">
-          <input
-            type="radio"
-            id="saturday-party-yes"
-            name="saturdayParty"
-            value="yes"
-            required
-            aria-required="true"
-            aria-describedby="saturday-party-group"
-          />
-          Yes, I'll attend
-        </label>
-        <label for="saturday-party-no">
-          <input
-            type="radio"
-            id="saturday-party-no"
-            name="saturdayParty"
-            value="no"
-            required
-            aria-describedby="saturday-party-group"
-          />
-          No, I won't attend
-        </label>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Additional Information</legend>
-
-    <div class="form-group">
-      <label for="dietary">Dietary Restrictions or Allergies</label>
-      <textarea
-        id="dietary"
-        name="dietary"
-        placeholder="Please let us know if you have any dietary restrictions or allergies..."
-      ></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="message">Message or Special Notes</label>
-      <textarea
-        id="message"
-        name="message"
-        placeholder="Feel free to share any special notes or messages..."
-      ></textarea>
-    </div>
--->
-    <!-- Honeypot field: visually hidden but accessible to screen readers -->
-    <div class="honeypot">
-      <label for="website">Website</label>
-      <input type="text" id="website" name="website" />
-    </div>
-
-    <!-- Turnstile widget will be inserted here -->
-    <div id="turnstile-widget" class="form-group" style="margin-top: var(--spacing-lg);"></div>
-  </fieldset>
-<!--
-  <div class="form-actions">
-    <button type="submit" class="cta-button">Submit RSVP</button>
-    <button type="reset" class="btn-secondary">Clear Form</button>
-  </div>
-</form>
--->
-
-<style>
-.rsvp-form {
-  max-width: 700px;
-}
-
-.form-actions {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-xl);
-  flex-wrap: wrap;
-}
-
-.btn-secondary {
-  background-color: var(--color-text-muted);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-text);
-}
-
-.btn-secondary:focus {
-  background-color: var(--color-text);
-}
-
-.cf-turnstile {
-  margin-top: var(--spacing-md);
-}
-</style>
-
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-<script>
-(function() {
-  'use strict';
-
-  const form = document.getElementById('rsvp-form');
-  const errorSummary = document.getElementById('error-summary');
-  const errorList = document.getElementById('error-list');
-  const successMessage = document.getElementById('success-message');
-  const turnstileWidget = document.getElementById('turnstile-widget');
-
-  // Configuration - can be overridden by setting window.RSVP_CONFIG
-  const defaultConfig = {
-    workerUrl: 'https://sarina-bat-mitzvah-worker.username.workers.dev/api/rsvp', // Update this
-    turnstileSiteKey: '', // Set via Eleventy data or environment
-    skipTurnstile: false,
-    debugMode: false,
-  };
-
-  const config = window.RSVP_CONFIG || defaultConfig;
-  
-  const WORKER_URL = config.workerUrl;
-  const TURNSTILE_SITE_KEY = config.turnstileSiteKey;
-  const SKIP_TURNSTILE = config.skipTurnstile;
-  const DEBUG = config.debugMode;
-
-  // Initialize Turnstile widget
-  function initTurnstile() {
-    if (SKIP_TURNSTILE) {
-      if (DEBUG) console.log('Turnstile skipped (development mode)');
-      return;
-    }
-
-    if (!TURNSTILE_SITE_KEY) {
-      console.warn('Turnstile site key not configured. RSVP form will not verify submissions.');
-      return;
-    }
-    
-    try {
-      window.turnstile.render('#turnstile-widget', {
-        sitekey: TURNSTILE_SITE_KEY,
-        theme: 'light',
-      });
-      if (DEBUG) console.log('Turnstile initialized');
-    } catch (e) {
-      console.error('Failed to initialize Turnstile:', e);
-    }
-  }
-
-  // Form validation
-  function validateForm() {
-    const errors = [];
-
-    // Full name
-    const fullName = document.getElementById('full-name');
-    if (!fullName.value.trim()) {
-      errors.push({ field: 'full-name', message: 'Full name is required' });
-    }
-
-    // Email
-    const email = document.getElementById('email');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.value.trim()) {
-      errors.push({ field: 'email', message: 'Email is required' });
-    } else if (!emailRegex.test(email.value)) {
-      errors.push({ field: 'email', message: 'Please enter a valid email address' });
-    }
-
-    // Party size
-    const partySize = document.getElementById('party-size');
-    if (!partySize.value) {
-      errors.push({ field: 'party-size', message: 'Number of guests is required' });
-    } else if (parseInt(partySize.value) < 1) {
-      errors.push({ field: 'party-size', message: 'Party size must be at least 1' });
-    }
-
-    // Friday service
-    const fridayRadios = document.querySelectorAll('input[name="fridayService"]');
-    if (!Array.from(fridayRadios).some(r => r.checked)) {
-      errors.push({ field: 'friday-yes', message: 'Please indicate if you\'re attending Friday service' });
-    }
-
-    // Saturday morning service
-    const saturdayMorningRadios = document.querySelectorAll('input[name="saturdayMorningService"]');
-    if (!Array.from(saturdayMorningRadios).some(r => r.checked)) {
-      errors.push({ field: 'saturday-service-yes', message: 'Please indicate if you\'re attending Saturday morning service' });
-    }
-
-    // Saturday party
-    const saturdayPartyRadios = document.querySelectorAll('input[name="saturdayParty"]');
-    if (!Array.from(saturdayPartyRadios).some(r => r.checked)) {
-      errors.push({ field: 'saturday-party-yes', message: 'Please indicate if you\'re attending Saturday party' });
-    }
-
-    return errors;
-  }
-
-  // Display errors
-  function displayErrors(errors) {
-    errorList.innerHTML = '';
-    errors.forEach(error => {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#' + error.field;
-      a.textContent = error.message;
-      li.appendChild(a);
-      errorList.appendChild(li);
-    });
-    errorSummary.style.display = 'block';
-    errorSummary.focus();
-  }
-
-  // Clear errors
-  function clearErrors() {
-    errorSummary.style.display = 'none';
-    errorList.innerHTML = '';
-  }
-
-  // Spam check: verify honeypot is empty
-  function isSpam() {
-    const honeypot = document.getElementById('website');
-    return honeypot && honeypot.value.trim() !== '';
-  }
-
-  // Submit form
-  async function submitForm(e) {
-    e.preventDefault();
-    clearErrors();
-
-    // Check honeypot
-    if (isSpam()) {
-      console.warn('Spam detected: honeypot field filled');
-      successMessage.style.display = 'block'; // Silent success to confuse bots
-      return;
-    }
-
-    // Validate form
-    const errors = validateForm();
-    if (errors.length > 0) {
-      displayErrors(errors);
-      return;
-    }
-
-    // Get Turnstile token
-    let turnstileToken = '';
-    if (window.turnstile) {
-      try {
-        turnstileToken = window.turnstile.getResponse();
-      } catch (e) {
-        console.error('Failed to get Turnstile token:', e);
-      }
-    }
-
-    // Prepare form data
-    const formData = new FormData(form);
-    const data = {
-      fullName: formData.get('fullName'),
-      email: formData.get('email'),
-      partySize: parseInt(formData.get('partySize')),
-      additionalGuests: formData.get('additionalGuests'),
-      fridayService: formData.get('fridayService'),
-      saturdayMorningService: formData.get('saturdayMorningService'),
-      saturdayParty: formData.get('saturdayParty'),
-      dietary: formData.get('dietary'),
-      message: formData.get('message'),
-      if (DEBUG) console.log('Submitting RSVP to:', WORKER_URL);
-      const response = await fetch(WORKER_URL
-      timestamp: new Date().toISOString(),
-    };
-
-    // Submit to worker
-    try {
-      const response = await fetch('/api/rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        // Success!
-        form.style.display = 'none';
-        successMessage.style.display = 'block';
-        successMessage.focus();
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        // Error from server
-        displayErrors([{
-          field: 'form',
-          message: result.message || 'An error occurred. Please try again or contact us.'
-        }]);
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      displayErrors([{
-        field: 'form',
-        message: 'Network error. Please check your connection and try again.'
-      }]);
-    }
-  }
-
-  // Event listeners
-  form.addEventListener('submit', submitForm);
-
-  if (DEBUG) console.log('RSVP form initialized successfully', { config });
-})();
-</script>
-
-<!-- Optional: Configure RSVP settings before form initializes -->
-<script>
-  // Set configuration here or in a separate config script
-  // window.RSVP_CONFIG = {
-  //   workerUrl: 'https://your-worker.username.workers.dev/api/rsvp',
-  //   turnstileSiteKey: 'your-site-key-here',
-  //   skipTurnstile: false,
-  //   debugMode: false,
-  // } (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTurnstile);
-  } else {
-    initTurnstile();
-  }
-
-  console.log('RSVP form initialized successfully');
-})();
-</script>
+         if (response.ok) {
+           status.textContent = "Thank you! Your RSVP has been received.";
+           form.reset();
+         } else {
+           status.textContent = "Sorry, something went wrong. Please try again.";
+         }
+       } catch (error) {
+         status.textContent = "Sorry, something went wrong. Please try again.";
+       }
+     });
+   </script>

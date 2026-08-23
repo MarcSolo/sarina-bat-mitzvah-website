@@ -111,7 +111,7 @@ showing them on the website.
    ```
    Example value to paste:
    ```text
-   marc@example.com,sarina@example.com
+   mrmarcsolomon@gmail.com,mrsjessicasolomon@gmail.com
    ```
 
 ### Part E: Add the Worker Code
@@ -123,67 +123,68 @@ showing them on the website.
 2. Replace the contents of `src/index.js` with the following:
    ```javascript
    export default {
-     async fetch(request, env) {
-       // Allow the browser to call this Worker (CORS)
-       const cors = {
-         "Access-Control-Allow-Origin": "*",
-         "Access-Control-Allow-*ethods": "POST* OPTIONS",
-         "Access-Contro*-Allow-Headers": "Content-Type",
- *     };
+  async fetch(request, env) {
+    // Allow the browser to call this Worker (CORS)
+    const cors = {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    };
 
-       // Browsers send a*preflight OPTIONS request first
-  *    if (request.method === "OPTION*") {
-         return new Response(*ull, { headers: cors });*       }
+    // Browsers send a preflight OPTIONS request first
+    if (request.method === "OPTIONS") {
+      return new Response(null, { headers: cors });
+    }
 
-       if (request.metho* !== "POST") {
-         return new*Response("Method not allowed", { s*atus: 405, headers: cors });
-     * }
+    if (request.method !== "POST") {
+      return new Response("Method not allowed", { status: 405, headers: cors });
+    }
 
-       // Read the submitted f*rm data
-       const data = await *equest.json();
-       const name =*data.name || "Unknown";
-       con*t email = data.email || "Not provi*ed";
-       const attending = data*attending || "Not provided";
-     * const guests = data.guests || "0"*
-       const message = data.messa*e || "";
+    // Read the submitted form data
+    const data = await request.json();
+    const name = data.name || "Unknown";
+    const email = data.email || "Not provided";
+    const attending = data.attending || "Not provided";
+    const guests = data.guests || "0";
+    const message = data.message || "";
 
-       // Build the noti*ication email
-       const recipie*ts = env.RSVP_EMAILS.split(",").map((e) => e.trim());
-       const body = [
-         `New RSVP received`,
-         ``,
-         `Name: ${name}`,
-         `Attending: ${attending}`,
-         `Number of guests: ${guests}`,
-         `Email: ${email}`,
-         `Message: ${message}`,
-       ].join("\n");
+    // Build the notification email
+    const recipients = env.RSVP_EMAILS.split(",").map((e) => e.trim());
+    const body = [
+      `New RSVP received`,
+      ``,
+      `Name: ${name}`,
+      `Attending: ${attending}`,
+      `Number of guests: ${guests}`,
+      `Email: ${email}`,
+      `Message: ${message}`,
+    ].join("\n");
 
-       // Send the email through Resend
-       const send = await fetch("https://api.resend.com/emails", {
-         method: "POST",
-         headers: {
-           "Authorization": `Bearer ${env.RESEND_API_KEY}`,
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify({
-           from: "onboarding@resend.dev", // change to your domain later
-           to: recipients,
-           subject: `New RSVP: ${name} (${attending})`,
-           text: body,
-         }),
-       });
+    // Send the email through Resend
+    const send = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "onboarding@resend.dev", // change to your domain later
+        to: recipients,
+        subject: `New RSVP: ${name} (${attending})`,
+        text: body,
+      }),
+    });
 
-       if (!send.ok) {
-         return new Response("Failed to send email", { status: 500, headers: cors });
-       }
+    if (!send.ok) {
+      return new Response("Failed to send email", { status: 500, headers: cors });
+    }
 
-       return new Response(JSON.stringify({ success: true }), {
-         status: 200,
-         headers: { ...cors, "Content-Type": "application/json" },
-       });
-     },
-   };
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
+  },
+};
    ```
 
 ### Part F: Deploy the Worker
@@ -195,11 +196,11 @@ showing them on the website.
 2. At the end, Wrangler prints your Worker's web address. Copy it. It looks
    like:
    ```text
-   https://rsvp-worker.yourname.workers.dev
+   https://marc-solomon.workers.dev
    ```
 3. Your RSVP endpoint is that address plus `/`:
    ```text
-   https://rsvp-worker.yourname.workers.dev
+   https://marc-solomon.workers.dev
    ```
 
 ### Part G: Connect Your Website Form
