@@ -292,7 +292,7 @@ main {
 }
 
 form {
-  max-width: 60%;
+  max-width: 80%;
 }
 
 fieldset {
@@ -322,13 +322,9 @@ label[for] {
   cursor: pointer;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-textarea,
-select {
+input[type="text"]{
   width: 100%;
+  max-width: 50ch;
   padding: var(--spacing-xs);
   margin-bottom: var(--spacing-sm);
   border: 1px solid var(--color-border);
@@ -339,29 +335,6 @@ select {
 }
 input[type="number"]{
   width: 4ch; /* ~2 digits + the up/down spinner arrows */
-}
-
-
-
-input[type="radio"],
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--color-link);
-}
-
-.radio-group,
-.checkbox-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.radio-group label,
-.checkbox-group label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0;
 }
 
 button,
