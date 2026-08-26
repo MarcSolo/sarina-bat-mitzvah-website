@@ -15,7 +15,13 @@
   <header class="site-header">
     <div class="header-container">
       <a href="/" class="logo-link" title="Sarina's Bat Mitzvah - Homepage" {% if page.url == "/" %}aria-current="page"{% endif %}>
-        <img src="/assets/img/sarina-logo-light2x.png" alt="Sarina's Bat Mitzvah - Homepage" class="logo">
+      <img
+          srcset="/assets/img/sarina-logo-light-250w.png 250w, /assets/img/sarina-logo-light-500w.png 500w"
+          sizes="(width <= 600px) 480px,
+                800px"
+          src="/assets/img/sarina-logo-light-250w.png"
+          alt="Sarina's Bat Mitzvah - Homepage" 
+          class="logo"/>
       </a>
       <nav class="main-nav">
         <ul class="nav-list">
