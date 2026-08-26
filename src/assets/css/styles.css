@@ -195,8 +195,8 @@ blockquote {
 
 .logo {
   display: block;
-  width: auto;
-  height: 100%;
+  width: 250px;
+  height: 250px;
 }
 
 .main-nav {
