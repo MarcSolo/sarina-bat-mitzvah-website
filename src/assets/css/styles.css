@@ -187,17 +187,26 @@ blockquote {
 }
 
 .logo-link {
-  /*display: flex;*/
+  display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
 }
 
-.logo {
+.logo-link img {
   display: block;
   max-width: 100%;
-  height: auto !important;
+  height: auto;
+  flex-shrink: 0;
 }
+
+/*.logo {
+  display: block;
+  max-width: 100%;
+  width: 50%;
+  height: 50%;
+  height: auto !important;
+}*/
 
 .main-nav {
   width: 100%;
@@ -348,11 +357,11 @@ input[type="reset"] {
     --spacing-xl: 24px;
   }
 
-  .logo {
+ /*.logo {
   display: block;
   max-width: 100%;
   height: auto !important;
-  }
+  }*/
 
   main {
     padding-left: var(--spacing-md);
