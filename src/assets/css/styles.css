@@ -195,8 +195,8 @@ blockquote {
 
 .logo {
   display: block;
-  width: 50%;
-  height: 50%;
+  max-width: 100%;
+  height: auto !important;
 }
 
 .main-nav {
@@ -243,7 +243,7 @@ main {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: var(--spacing-xl) var(--spacing-md) var(--spacing-2xl);
+  padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs);
 }
 
 .hero-image {
@@ -313,7 +313,7 @@ input[type="reset"] {
 
 .site-footer {
   background: #ffffff;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md);
   margin-top: auto;
 }
 
