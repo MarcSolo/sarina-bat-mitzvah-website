@@ -1,18 +1,20 @@
 /* ============================================================================
-   Sarina's Bat Mitzvah - Minimal Light Theme
+   Sarina's Bat Mitzvah - Light and Dark Themes
    ============================================================================ */
 
 :root {
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-muted: #4b4b4b;
-  --color-link: #5a3b5d;
-  --color-focus: #6e4872;
-  --color-border: #443d3d;
-  --color-error: #b42318;
-  --color-error-bg: #fff1f1;
-  --color-form-response-bg: hsla(296, 22%, 30%, 0.100);
+  color-scheme: light dark;
 
+  --color-bg: light-dark(#fdfcfa, #16181c);
+  --color-text: light-dark(#1a1a1a, #e6e6e6); 
+  --color-link: light-dark(#5a3b5d, #48d7e7);
+  --color-button-text: light-dark(#fdfcfa, #160B1C);
+  --color-focus: light-dark(#6e4872, #48d7e7);
+  --color-border: light-dark(#443d3d, #3a3f48);
+  --color-error: light-dark(#b3261e, #f2b8b5);
+  --color-error-bg: light-dark(#fff1f1, #872a25);
+  --color-form-response-bg: light-dark(#ede9ea, #1d1c23);
+  
   --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-size-base: 18px;
   --font-size-sm: 14px;
@@ -78,7 +80,7 @@ main {
   z-index: 100;
   padding: var(--spacing-md);
   background: var(--color-link);
-  color: #ffffff;
+  color: var(--color-text);
   text-decoration: none;
   opacity: 0;
   pointer-events: none;
@@ -88,7 +90,7 @@ main {
 
 .skip-to-main:hover,
 .skip-to-main:focus {
-  color: #ffffff;
+  color: var(--color-button-text);
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
@@ -139,13 +141,8 @@ li {
 }
 
 a {
-  color: var(--color-link);
-  text-decoration: underline;
-}
-
-a:hover,
-a:focus {
-  color: var(--color-link);
+  color: var(--color-text);
+  text-decoration: underline var(--color-link);
 }
 
 a:focus,
@@ -155,25 +152,6 @@ textarea:focus,
 select:focus {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
-}
-
-code {
-  padding: 2px 6px;
-  background: #f7f7f7;
-  border-radius: 4px;
-  font-family: "SFMono-Regular", Consolas, monospace;
-}
-
-blockquote {
-  margin: var(--spacing-xl) 0;
-  padding-left: var(--spacing-lg);
-  border-left: 4px solid var(--color-link);
-  color: var(--color-muted);
-  font-style: italic;
-}
-
-.site-header {
-  background: #ffffff;
 }
 
 .header-container {
@@ -238,7 +216,7 @@ blockquote {
 
 .nav-list a:hover,
 .nav-list a:focus {
-  color: var(--color-link);
+  color: var(--color-text);
 }
 
 .nav-list a[aria-current="page"] {
@@ -258,7 +236,6 @@ main {
 .hero-image {
   display: block;
   width: 100%;
-  max-width: none;
   height: auto;
   margin: 0 auto var(--spacing-xl);
   border-radius: 8px;
@@ -289,14 +266,14 @@ label[for] {
   cursor: pointer;
 }
 
-input[type="text"], [type="number"] {
+input[type="text"], input[type="number"] {
   width: 100%;
   max-width: 45ch;
   padding: var(--spacing-xs);
   margin-bottom: var(--spacing-sm);
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background: #ffffff;
+  background: var(--color-bg);
   color: var(--color-text);
   font: inherit;
 }
@@ -314,15 +291,14 @@ input[type="reset"] {
   background: var(--color-link);
   border: 1px solid var(--color-link);
   border-radius: 6px;
-  color: #ffffff;
+  color: var(--color-button-text);
   font: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
 .site-footer {
-  background: #ffffff;
-  padding: var(--spacing-md) var(--spacing-md);
+  padding: var(--spacing-md);
   margin-top: auto;
 }
 
@@ -330,7 +306,6 @@ input[type="reset"] {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  color: var(--color-muted);
 }
 
 .footer-container p {
@@ -356,12 +331,6 @@ input[type="reset"] {
     --font-size-4xl: 36px;
     --spacing-xl: 24px;
   }
-
- /*.logo {
-  display: block;
-  max-width: 100%;
-  height: auto !important;
-  }*/
 
   main {
     padding-left: var(--spacing-md);
@@ -404,7 +373,7 @@ input[type="reset"] {
   padding: var(--spacing-md);
   margin-top: var(--spacing-lg);
   border-radius: 4px;
-  color: var(--color-link);
+  color: var(--color-text);
 }
 
 .form-response:empty {
