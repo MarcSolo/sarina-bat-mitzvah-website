@@ -3,17 +3,16 @@
    ============================================================================ */
 
 :root {
-  color-scheme: light dark;
 
-  --color-bg: light-dark(#fdfcfa, #16181c);
-  --color-text: light-dark(#1a1a1a, #e6e6e6); 
-  --color-link: light-dark(#5a3b5d, #48d7e7);
-  --color-button-text: light-dark(#fdfcfa, #160B1C);
-  --color-focus: light-dark(#6e4872, #48d7e7);
-  --color-border: light-dark(#443d3d, #3a3f48);
-  --color-error: light-dark(#b3261e, #f2b8b5);
-  --color-error-bg: light-dark(#fff1f1, #872a25);
-  --color-form-response-bg: light-dark(#ede9ea, #1d1c23);
+  --color-bg: #fdfcfa;
+  --color-text: #1a1a1a;
+  --color-link: #5a3b5d;
+  --color-button-text: #fdfcfa;
+  --color-focus: #6e4872;
+  --color-border: #443d3d;
+  --color-error: #b3261e;
+  --color-error-bg: #fff1f1;
+  --color-form-response-bg: #ede9ea;
   
   --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-size-base: 18px;
@@ -34,6 +33,20 @@
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #16181c;
+    --color-text: #e6e6e6;
+    --color-link: #48d7e7;
+    --color-button-text: #160b1c;
+    --color-focus: #48d7e7;
+    --color-border: #3a3f48;
+    --color-error: #f2b8b5;
+    --color-error-bg: #872a25;
+    --color-form-response-bg: #1d1c23;
+  }
 }
 
 * {
