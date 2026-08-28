@@ -107,7 +107,7 @@ main {
 }
 
 .skip-to-main:hover,
-.skip-to-main:focus {
+.skip-to-main:focus-visible {
   color: var(--color-button-text);
   opacity: 1;
   pointer-events: auto;
@@ -163,11 +163,11 @@ a {
   text-decoration: underline var(--color-link);
 }
 
-a:focus,
-button:focus,
-input:focus,
-textarea:focus,
-select:focus {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
@@ -233,7 +233,7 @@ select:focus {
 }
 
 .nav-list a:hover,
-.nav-list a:focus {
+.nav-list a:focus-visible {
   color: var(--color-text);
 }
 
