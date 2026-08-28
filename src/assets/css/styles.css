@@ -6,10 +6,10 @@
 
   --color-bg: #fdfcfa;
   --color-text: #1a1a1a;
-  --color-link: #5a3b5d;
+  --color-link: #8748c7;
   --color-button-text: #fdfcfa;
-  --color-focus: #6e4872;
-  --color-border: #443d3d;
+  --color-focus: #8748c7;
+  --color-border: #787878;
   --color-error: #b3261e;
   --color-error-bg: #fff1f1;
   --color-form-response-bg: #ede9ea;
@@ -40,9 +40,9 @@
   :root {
     --color-bg: #16181c;
     --color-text: #e6e6e6;
-    --color-link: #48d7e7;
+    --color-link: #b994de;
     --color-button-text: #160b1c;
-    --color-focus: #48d7e7;
+    --color-focus: #B994DE;
     --color-border: #ACACAC;
     --color-error: #f2b8b5;
     --color-error-bg: #872a25;
