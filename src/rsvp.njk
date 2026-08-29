@@ -7,20 +7,22 @@ permalink: /rsvp/
 <h1>RSVP</h1>
 <p class="form-response">Please RSVP by <strong>October 31st, 2026</strong>.</p>
 <p>Fill out this form to let us know which bat mitzvah events you plan to attend and the number of people in your party.</p>
-<p>All fields are required.</p>
+<p>All fields are required unless marked optional.</p>
 <form id="rsvp-form">
      <label for="name">Name</label><br> 
-     <input id="name" name="name" type="text" required>
+     <input class="input-name" id="name" name="name" type="text" required>
      <fieldset>
       <legend>How many will attend?</legend>
       <div id="instructions">Enter 0 if you don't plan to attend an event.</p>
       <label for="oneg">Friday Evening: Erev Shabbat Service and Oneg</label><br>
-      <input id="oneg" name="oneg-guests" type="number" min="0" aria-describedby="instructions" required><br>
+      <input class="input-number" id="oneg" name="oneg-guests" type="number" min="0" aria-describedby="instructions" required><br>
       <label for="bat-mitzvah-service">Saturday Morning: Bat Mitzvah Service and Kiddush Luncheon</label><br>
-      <input id="bat-mitzvah-service" name="bat-mitzvah-service-guests" type="number" min="0" aria-describedby="instructions" required><br>
+      <input class="input-number" id="bat-mitzvah-service" name="bat-mitzvah-service-guests" type="number" min="0" aria-describedby="instructions" required><br>
       <label for="bat-mitzvah-party">Saturday Evening: Bat Mitzvah Party </label><br>
-      <input id="bat-mitzvah-party" name="bat-mitzvah-party-guests" type="number" min="0" aria-describedby="instructions" required>
+      <input class="input-number" id="bat-mitzvah-party" name="bat-mitzvah-party-guests" type="number" min="0" aria-describedby="instructions" required>
       </fieldset>
+      <label for="diet">Describe any dietary restrictions for your party (optional)</label><br> 
+      <input class="input-notes" id="diet" name="diet" type="text">
       <div class="cf-turnstile" data-sitekey="0x4AAAAAAEZbcPViWmfcyHnZ" data-callback="handleTurnstileSuccess" data-expired-callback="handleTurnstileExpired"></div>
       <input id="turnstile-token" name="turnstileToken" type="hidden">
      <button type="submit">Submit RSVP</button>

@@ -205,4 +205,70 @@ describe("RSVP worker", () => {
 		expect(response.status).toBe(500);
 		expect(await response.text()).toBe("Failed to send email");
 	});
+
+	it("includes dietary restrictions in the email when provided", async () => {
+		const resend = vi.fn(async () => new Response("{}", { status: 200 }));
+		vi.stubGlobal("fetch", resend);
+		const request = new Request("https://example.com", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: "Sarina Solomon",
+				"oneg-guests": "2",
+				"bat-mitzvah-service-guests": "3",
+				"bat-mitzvah-party-guests": "4",
+				diet: "Vegetarian, gluten-free",
+			}),
+		});
+
+		const response = await worker.fetch(request, env);
+		const [url, options] = resend.mock.calls[0];
+		const email = JSON.parse(options.body);
+
+		expect(response.status).toBe(200);
+		expect(email.html).toContain("Dietary restrictions:</strong> Vegetarian, gluten-free");
+	});
+
+	it("escapes special characters in dietary restrictions", async () => {
+		const resend = vi.fn(async () => new Response("{}", { status: 200 }));
+		vi.stubGlobal("fetch", resend);
+		const request = new Request("https://example.com", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: "Sarina Solomon",
+				"oneg-guests": "2",
+				"bat-mitzvah-service-guests": "3",
+				"bat-mitzvah-party-guests": "4",
+				diet: "No <peanuts> & shellfish",
+			}),
+		});
+
+		await worker.fetch(request, env);
+		const email = JSON.parse(resend.mock.calls[0][1].body);
+
+		expect(email.html).toContain("No &lt;peanuts&gt; &amp; shellfish");
+		expect(email.html).not.toContain("No <peanuts> & shellfish");
+	});
+
+	it("omits dietary restrictions from email when not provided", async () => {
+		const resend = vi.fn(async () => new Response("{}", { status: 200 }));
+		vi.stubGlobal("fetch", resend);
+		const request = new Request("https://example.com", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: "Sarina Solomon",
+				"oneg-guests": "2",
+				"bat-mitzvah-service-guests": "3",
+				"bat-mitzvah-party-guests": "4",
+			}),
+		});
+
+		await worker.fetch(request, env);
+		const email = JSON.parse(resend.mock.calls[0][1].body);
+
+		expect(email.html).not.toContain("Dietary restrictions:");
+	});
+
 });

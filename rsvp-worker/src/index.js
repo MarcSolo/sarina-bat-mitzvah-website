@@ -51,6 +51,7 @@ export default {
     const onegGuests = sanitizeGuestCount(data["oneg-guests"]);
     const batMitzvahServiceGuests = sanitizeGuestCount(data["bat-mitzvah-service-guests"]);
     const batMitzvahPartyGuests = sanitizeGuestCount(data["bat-mitzvah-party-guests"]);
+    const dietRestrictions = data.diet ? sanitizeText(data.diet) : "";
 
     const rateLimit = await checkRateLimit(
       env,
@@ -68,6 +69,7 @@ export default {
     `<p><strong>Number of Friday evening guests:</strong> ${onegGuests}</p>`,
     `<p><strong>Number of Saturday morning guests:</strong> ${batMitzvahServiceGuests}</p>`,
     `<p><strong>Number of Saturday evening guests:</strong> ${batMitzvahPartyGuests}</p>`,
+    ...(dietRestrictions ? [`<p><strong>Dietary restrictions:</strong> ${escapeHtml(dietRestrictions)}</p>`] : []),
 	].join("");
 
     // Send the email through Resend
@@ -123,6 +125,10 @@ function validateRsvpData(data) {
     if (!Number.isInteger(value) || value < 0 || value > 999) {
       errors.push(`${field} must be a whole number from 0 to 999`);
     }
+  }
+
+  if (data.diet && typeof data.diet !== "string") {
+    errors.push("diet restrictions must be a string");
   }
 
   return { valid: errors.length === 0, errors };
